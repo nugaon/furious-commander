@@ -263,6 +263,22 @@ There is a built-in `hex-string` type that does the following checks and transfo
 - Checks for even length, unless `oddLength: true` property is given
 - Obeys `length`, `minimumLength` and `maximumLength` rules
 
+### Autocomplete
+
+All commands support autocomplete out of the box. The currently supported shells are `bash`, `zsh` and `fish`. `bash` uses `complete` and `COMPREPLY`, `zsh` uses `compdef` and `compadd`, `fish` uses `complete` (which is different from `bash` `complete`).
+
+If an option or argument should accept and autocomplete a path, add the `autocompletePath` property.
+
+To enable autocompletion, the end user has to install it automatically or manually.
+
+`--generate-completion` will print the shell, configuration path and the autocomplete script.
+
+`--install-completion` appends it to the file at the configuration path additionally.
+
+Autocomplete only needs to be installed once, as the suggestions are handled dynamically by the application - meaning future changes will be picked up automatically.
+
+This is achieved by calling the application with the `--compgen` flag, as well as `--compfish`, `--compzsh` or `--compbash` accordingly, and the actual line (or "buffer") that is being written by the end user.
+
 ## Setup your project
 
 In order to use decorators in your project (until it's not available in vanilla JS) you should use `typescript` with the following configuration:

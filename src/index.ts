@@ -3,7 +3,7 @@ import 'reflect-metadata'
 import { Aggregation, findFirstAggregration } from './aggregation'
 import { Application } from './application'
 import { Argument, getArgument, IArgument } from './argument'
-import { autocomplete } from './autocomplete'
+import { maybeAutocomplete, maybeGenerateAutocompletion, maybeInstallAutocompletion } from './autocomplete'
 import { Command, GroupCommand, InitedCommand, isGroupCommand, LeafCommand } from './command'
 import { ExternalOption, getExternalOption, getOption, IOption, Option } from './option'
 import { createDefaultPrinter, Printer } from './printer'
@@ -155,8 +155,11 @@ class CommandBuilder {
       this.initCommandInstance(this.parser, initedCommand)
     }
 
+    await maybeAutocomplete(argv, this.parser)
+
     if (options.application?.command) {
-      await autocomplete(this.parser, options.application?.command)
+      await maybeGenerateAutocompletion(argv, options.application.command)
+      await maybeInstallAutocompletion(argv, options.application.command)
     }
 
     this.context = this.parser.parse(argv)

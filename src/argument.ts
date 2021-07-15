@@ -22,6 +22,7 @@ export interface IArgument<T = unknown> {
   maximumLength?: number
   oddLength?: boolean
   noErrors?: boolean
+  autocompletePath?: boolean
 }
 
 /**

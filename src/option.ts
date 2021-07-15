@@ -23,6 +23,7 @@ export interface IOption<T = unknown> {
   maximumLength?: number
   oddLength?: boolean
   noErrors?: boolean
+  autocompletePath?: boolean
 }
 
 /**
